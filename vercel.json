@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npx ng build --configuration production --no-optimization",
+  "outputDirectory": "dist/frontend",
+  "framework": "none",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
