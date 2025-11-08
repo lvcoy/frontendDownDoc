@@ -1,0 +1,40 @@
+<h1 class="titulo">📚 Documentos de Postulación</h1>
+
+
+<div class="header" *ngIf="usuario">
+  <mat-icon>account_circle</mat-icon>
+  <h2>Bienvenido/a, {{ usuario.nombre }}</h2>
+  <p>{{ usuario.correo }}</p>
+</div>
+
+
+<div class="contenedor">
+  <mat-card *ngFor="let doc of tiposDocs" class="tarjeta">
+    <mat-card-title>{{ doc.nombre }}</mat-card-title>
+
+    <div *ngIf="archivos[doc.key]; else noArchivo">
+      <p>📄 <a [href]="archivos[doc.key].url" target="_blank">{{ archivos[doc.key].name }}</a></p>
+      <button mat-raised-button color="warn" (click)="eliminarArchivo(doc.key)">
+        <mat-icon>delete</mat-icon> Eliminar
+      </button>
+    </div>
+
+    <ng-template #noArchivo>
+      <p>No se ha subido archivo.</p>
+    </ng-template>
+
+    <input type="file" (change)="subirArchivo($event, doc.key)" accept="application/pdf" />
+  </mat-card>
+</div>
+
+<p *ngIf="mensaje" class="mensaje">{{ mensaje }}</p>
+<mat-spinner *ngIf="cargando"></mat-spinner>
+
+
+<!-- 
+
+
+<h2>Subir PDF</h2>
+<input type="file" (change)="subirArchivo($event)" accept="application/pdf" />
+<button (click)="limpiar()">Limpiar selección</button>
+<p *ngIf="mensaje">{{ mensaje }}</p> -->
