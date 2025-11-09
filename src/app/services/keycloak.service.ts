@@ -4,16 +4,17 @@ let keycloak: KeycloakInstance;
 
 export const initKeycloak = (): Promise<KeycloakInstance> => {
   keycloak = new (Keycloak as any)({
-    url: 'https://keycloak-cloud.onrender.com',   // servidor Keycloak
-    realm: 'postulaciones',         // nombre del realm
-    clientId: 'frontend-angular',   // ID del cliente
+    url: 'https://keycloak-cloud.onrender.com',
+    realm: 'postulaciones',
+    clientId: 'frontend-angular',
   });
 
   return keycloak
     .init({
-      onLoad: 'login-required',     // login directo, evita el timeout
-      checkLoginIframe: false,      // desactiva iframe problemático
-      pkceMethod: 'S256',           // recomendado por seguridad
+      onLoad: 'login-required',
+      checkLoginIframe: false,
+      pkceMethod: 'S256',
+      silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html'
     })
     .then((authenticated: boolean) => {
       if (authenticated) {
@@ -41,8 +42,7 @@ export const login = () => {
 
 export const logout = () => {
   if (!keycloak) return;
-  keycloak.logout({ redirectUri: window.location.origin + '/login' });
+  keycloak.logout({ redirectUri: window.location.origin });
 };
 
-// Obtener instancia
 export const getKeycloak = () => keycloak;
