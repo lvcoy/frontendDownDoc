@@ -4,7 +4,7 @@ let keycloak: KeycloakInstance;
 
 export const initKeycloak = (): Promise<KeycloakInstance> => {
   keycloak = new (Keycloak as any)({
-    url: 'http://localhost:8080',   // servidor Keycloak
+    url: 'https://keycloak-cloud.onrender.com',   // servidor Keycloak
     realm: 'postulaciones',         // nombre del realm
     clientId: 'frontend-angular',   // ID del cliente
   });
